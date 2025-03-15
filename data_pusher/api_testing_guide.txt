@@ -1,0 +1,148 @@
+🚀 API Testing Guide for Django Project
+
+1️⃣ Signup API
+📌 Purpose: Register a new user.
+- Method: POST
+- URL: http://127.0.0.1:8000/api/users/register/
+- Headers:
+  Content-Type: application/json
+- Request Body (JSON):
+  {
+    "username": "john_doe",
+    "email": "john.doe@example.com",
+    "password": "securepassword123"
+  }
+- Expected Response:
+  {
+    "id": 1,
+    "username": "john_doe",
+    "email": "john.doe@example.com"
+  }
+
+2️⃣ Login API
+📌 Purpose: Authenticate and get access and refresh tokens.
+- Method: POST
+- URL: http://127.0.0.1:8000/api/token/
+- Headers:
+  Content-Type: application/json
+- Request Body (JSON):
+  {
+    "username": "john_doe",
+    "password": "securepassword123"
+  }
+- Expected Response:
+  {
+    "refresh": "long_refresh_token_string",
+    "access": "long_access_token_string"
+  }
+
+3️⃣ Create an Account
+📌 Purpose: Create a new account.
+- Method: POST
+- URL: http://127.0.0.1:8000/api/accounts/
+- Headers:
+  Content-Type: application/json
+  Authorization: Bearer <your_access_token>
+- Request Body (JSON):
+  {
+    "name": "Tech Corp",
+    "website": "https://www.techcorp.com",
+    "created_by": 1,
+    "updated_by": 1
+  }
+- Expected Response:
+  {
+    "id": "123e4567-e89b-12d3-a456-426614174000",
+    "name": "Tech Corp",
+    "secret_token": "randomly_generated_token",
+    "website": "https://www.techcorp.com",
+    "created_at": "2025-03-13T12:00:00Z",
+    "updated_at": "2025-03-13T12:00:00Z",
+    "created_by": 1,
+    "updated_by": 1
+  }
+
+4️⃣ Create a Destination
+📌 Purpose: Add a destination to an account.
+- Method: POST
+- URL: http://127.0.0.1:8000/api/destinations/
+- Headers:
+  Content-Type: application/json
+  Authorization: Bearer <your_access_token>
+- Request Body (JSON):
+  {
+    "account": "123e4567-e89b-12d3-a456-426614174000",
+    "url": "https://webhook.example.com",
+    "http_method": "POST",
+    "headers": {
+      "APP_ID": "1234APPID1234",
+      "APP_SECRET": "secure_secret",
+      "ACTION": "user.update",
+      "Content-Type": "application/json",
+      "Accept": "*"
+    },
+    "created_by": 1,
+    "updated_by": 1
+  }
+- Expected Response:
+  {
+    "id": 1,
+    "account": "123e4567-e89b-12d3-a456-426614174000",
+    "url": "https://webhook.example.com",
+    "http_method": "POST",
+    "headers": {
+      "APP_ID": "1234APPID1234",
+      "APP_SECRET": "secure_secret",
+      "ACTION": "user.update",
+      "Content-Type": "application/json",
+      "Accept": "*"
+    },
+    "created_at": "2025-03-13T12:00:00Z",
+    "updated_at": "2025-03-13T12:00:00Z",
+    "created_by": 1,
+    "updated_by": 1
+  }
+
+5️⃣ Create a Log Entry
+📌 Purpose: Store logs for an event.
+- Method: POST
+- URL: http://127.0.0.1:8000/api/logs/
+- Headers:
+  Content-Type: application/json
+  Authorization: Bearer <your_access_token>
+- Request Body (JSON):
+  {
+    "event_id": "e7d3f214-3f89-4a2c-8bdf-31c8d254e33d",
+    "account": "123e4567-e89b-12d3-a456-426614174000",
+    "received_timestamp": "2025-03-13T12:00:00Z",
+    "processed_timestamp": "2025-03-13T12:05:00Z",
+    "destination": 1,
+    "received_data": {
+      "user_id": 45,
+      "action": "update_profile"
+    },
+    "status": "success"
+  }
+- Expected Response:
+  {
+    "id": 1,
+    "event_id": "e7d3f214-3f89-4a2c-8bdf-31c8d254e33d",
+    "account": "123e4567-e89b-12d3-a456-426614174000",
+    "received_timestamp": "2025-03-13T12:00:00Z",
+    "processed_timestamp": "2025-03-13T12:05:00Z",
+    "destination": 1,
+    "received_data": {
+      "user_id": 45,
+      "action": "update_profile"
+    },
+    "status": "success"
+  }
+
+✅ Summary of API Endpoints
+API Name            | Method | URL                        | Authentication Required?
+--------------------|--------|---------------------------|------------------------
+Signup             | POST   | /api/users/register/      | ❌ No
+Login              | POST   | /api/token/               | ❌ No
+Create Account     | POST   | /api/accounts/            | ✅ Yes
+Create Destination | POST   | /api/destinations/        | ✅ Yes
+Create Log Entry   | POST   | /api/logs/                | ✅ Yes

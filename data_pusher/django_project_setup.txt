@@ -1,0 +1,73 @@
+🚀 Django Project Setup Guide
+Project Folder Structure
+----------------------------
+data_pusher/
+│── accounts/                # App for managing accounts
+│── destinations/            # App for managing destinations
+│── users/                   # User authentication module
+│── logs/                    # Logs storage module
+│── handlers/                # API handlers
+│── roles/                    # User roles module
+│── account_members/         # Account membership module
+│
+│── data_pusher/             # Main project directory
+│   ├── __init__.py
+│   ├── settings.py          # Project settings
+│   ├── urls.py              # API endpoints routing
+│   ├── wsgi.py              # WSGI configuration
+│   ├── asgi.py              # ASGI configuration (if using Django Channels)
+│   ├── celery.py            # Celery configuration (if using async tasks)
+│
+│── docs/                    # Documentation folder
+│   ├── README.md
+│   ├── API_TESTING.md
+│   ├── INSTALLATION.md
+│
+│── scripts/                 # Useful scripts for setup or testing
+│   ├── setup_db.py
+│
+│── migrations/              # Database migration files
+│── requirements.txt         # Python dependencies
+│── .env.example             # Example environment variables
+│── .gitignore               # Ignore unnecessary files
+│── manage.py                # Django CLI entry point
+
+.gitignore File (Ignore Unnecessary Files)
+-----------------------------------------------
+
+# Database
+*.sqlite3
+
+# Migrations
+migrations/
+
+requirements.txt (Dependencies)
+-----------------------------------
+To install dependencies:
+pip install -r requirements.txt
+
+Database Migrations
+-----------------------
+python manage.py makemigrations
+python manage.py migrate
+
+Start the Development Server
+--------------------------------
+python manage.py runserver
+
+ API Endpoints for Testing (Use Postman)
+--------------------------------------------
+# Signup (POST)
+http://127.0.0.1:8000/api/users/register/
+
+# Login (POST)
+http://127.0.0.1:8000/api/token/
+
+# Create Account (POST)
+http://127.0.0.1:8000/api/accounts/
+
+# Create Destination (POST)
+http://127.0.0.1:8000/api/destinations/
+
+# Create Log (POST)
+http://127.0.0.1:8000/api/logs/
